@@ -14,12 +14,6 @@ from pathlib import Path
 import os
 import dj_database_url
 
-if os.path.exists("env.py"):
-    import env
-
-
-SECRET_KEY = os.environ.get("my secret key")
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,12 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c0#s0j#h9)jp*otn&6$r)t&25t_=o^5=(b_a$x28fkytqtj13p'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'django-insecure-c0#s0j#h9)jp*otn&6$r)t&25t_=o^5=(b_a$x28fkytqtj13p')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hashim-django-todo-app.herokuapp.com']
+ALLOWED_HOSTS = [os.environ.get('HERO_HOSTNAME')]
 
 
 # Application definition
@@ -91,7 +86,7 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://kugjbipxgpvlmj:96c1f34d7acb6728aa13aa709f1aa3dcb410dd369ef75fe82aae1824da2d51fe@ec2-54-194-211-183.eu-west-1.compute.amazonaws.com:5432/d5qu1t8po6qqd9')
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 
